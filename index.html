@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGL</title>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.10.1/dist/ffmpeg.min.js"></script>
+    <style>
+        body {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <video muted autoplay width="480" height="270">
+        <source src="./test.mp4" type="video/mp4" />
+    </video>
+    <br>
+    <canvas width="1080" height="720"></canvas>
+    <button onclick="takeScreenshot()">Capture</button>
+    
+    <script>
+        function takeScreenshot() {
+            var video = document.querySelector("video");
+            var canvas = document.querySelector("canvas");
+
+            var gl = canvas.getContext("webgl2");
+
+            gl.texImage3D(
+                gl.TEXTURE_3D,    // target (enum)
+                0,                // level of detail
+                gl.RGBA,          // internalFormat
+                1920,             // width of texture
+                1080,             // height of texture
+                1,                // depth
+                0,                // border
+                gl.RGBA,          // format
+                gl.UNSIGNED_BYTE, // type
+                video,            // source
+            );
+        }
+    </script>
+</body>
+</html>
